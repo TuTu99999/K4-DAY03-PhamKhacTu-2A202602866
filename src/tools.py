@@ -43,9 +43,20 @@ TOOLS_SCHEMA = [
         "parameters": {
             "type": "object",
             "properties": {
-                # TODO 1.2: Khai báo các thuộc tính tham số cho Tool tại đây...
+                "student_id": {
+                    "type": "string",
+                    "description": "Mã sinh viên cần đặt lịch (ví dụ: 'SV2026001')"
+                },
+                "datetime_str": {
+                    "type": "string",
+                    "description": "Thời gian hẹn theo định dạng HH:MM DD/MM/YYYY (ví dụ: '14:00 15/09/2026')"
+                },
+                "advisor_name": {
+                    "type": "string",
+                    "description": "Họ tên cố vấn học tập cần đặt lịch"
+                }
             },
-            "required": [] # TODO 1.2: Khai báo danh sách các trường bắt buộc tại đây...
+            "required": ["student_id", "datetime_str", "advisor_name"]
         }
     }
 ]
@@ -61,7 +72,21 @@ MOCK_DATABASE = {
         "gpa": 3.85,
         "email": "an.nv@vinuni.edu.vn",
         "status": "Đang học",
-        "advisor": "PGS.TS Nguyễn Văn A"
+        "advisor": "PGS.TS Nguyễn Văn A",
+        "exam_schedule": [
+            {
+                "course_code": "AI301",
+                "course_name": "Agentic AI",
+                "datetime": "08:00 20/09/2026",
+                "room": "C101"
+            },
+            {
+                "course_code": "CS202",
+                "course_name": "Cấu trúc dữ liệu",
+                "datetime": "13:30 23/09/2026",
+                "room": "B203"
+            }
+        ]
     },
     "SV2026002": {
         "full_name": "Trần Thị Bình",
@@ -69,18 +94,27 @@ MOCK_DATABASE = {
         "gpa": 3.60,
         "email": "binh.tt@vinuni.edu.vn",
         "status": "Đang học",
-        "advisor": "TS. Lê Thị B"
+        "advisor": "TS. Lê Thị B",
+        "exam_schedule": [
+            {
+                "course_code": "MATH201",
+                "course_name": "Xác suất thống kê",
+                "datetime": "09:30 21/09/2026",
+                "room": "A205"
+            }
+        ]
     }
 }
 
 
 def execute_academic_query(student_id: str) -> str:
     """Thực thi tra cứu học vụ theo mã sinh viên"""
-    student = MOCK_DATABASE.get(student_id.strip().upper())
+    normalized_student_id = student_id.strip().upper()
+    student = MOCK_DATABASE.get(normalized_student_id)
     if student:
         return json.dumps({
             "status": "SUCCESS",
-            "student_id": student_id,
+            "student_id": normalized_student_id,
             "data": student
         }, ensure_ascii=False)
     else:
@@ -92,13 +126,20 @@ def execute_academic_query(student_id: str) -> str:
 
 def execute_schedule_appointment(student_id: str, datetime_str: str, advisor_name: str = "PGS.TS Nguyễn Văn A") -> str:
     """Thực thi đặt lịch hẹn tư vấn học vụ"""
+    normalized_student_id = student_id.strip().upper()
+    if normalized_student_id not in MOCK_DATABASE:
+        return json.dumps({
+            "status": "NOT_FOUND",
+            "message": f"Không thể đặt lịch vì không tìm thấy sinh viên có mã '{normalized_student_id}'"
+        }, ensure_ascii=False)
+
     return json.dumps({
         "status": "SUCCESS",
-        "booking_id": f"BK-{student_id}-99",
-        "student_id": student_id,
+        "booking_id": f"BK-{normalized_student_id}-99",
+        "student_id": normalized_student_id,
         "datetime": datetime_str,
         "advisor": advisor_name,
-        "message": f"Đặt lịch thành công cho sinh viên {student_id} với {advisor_name} vào lúc {datetime_str}."
+        "message": f"Đặt lịch thành công cho sinh viên {normalized_student_id} với {advisor_name} vào lúc {datetime_str}."
     }, ensure_ascii=False)
 
 

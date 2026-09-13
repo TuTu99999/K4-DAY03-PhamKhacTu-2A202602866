@@ -1,29 +1,173 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "query": "Sinh viên VinUni cần tích lũy tối thiểu bao nhiêu tín chỉ và duy trì GPA bao nhiêu để tốt nghiệp?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Theo Quy chế Học vụ của Đại học VinUni, điều kiện chung để sinh viên được xét công nhận tốt nghiệp bao gồm các tiêu chí chính sau:\n\n1. **Tổng số tín chỉ tích lũy tối thiểu:** \n   * Sinh viên cần hoàn thành đầy đủ số tín chỉ được quy định trong **Chương trình đào tạo (Curriculum Structure)** của ngành học tương ứng.\n   * Thông thường, các chương trình hệ Cử nhân 4 năm tại VinUni yêu cầu tích lũy tối thiểu từ **120 đến 130+ tín chỉ** (tùy thuộc vào từng Viện và từng ngành cụ thể như Quản trị Kinh doanh, Khoa học Máy tính, Y khoa, Điều dưỡng...).\n\n2. **Điểm trung bình tích lũy (CGPA):**\n   * Sinh viên phải duy trì Điểm trung bình tích lũy toàn khóa (**CGPA - Cumulative Grade Point Average**) tối thiểu là **2.0 / 4.0** (trên thang điểm 4.0) và không ở trong tình trạng cảnh báo học tập.\n\n3. **Các điều kiện bắt buộc khác:**\n   * **Chuẩn đầu ra Tiếng Anh:** Đạt trình độ tiếng Anh theo yêu cầu (thường là IELTS 6.5 trở lên hoặc tương đương).\n   * **Học phần bắt buộc:** Hoàn thành đầy đủ các môn học thuộc Khung chương trình Giáo dục Tổng quát (Core Curriculum), Giáo dục Quốc phòng - An ninh (GDQP-AN), và Giáo dục Thể chất.\n   * **Học phí & nghĩa vụ tài chính:** Hoàn thành đầy đủ các nghĩa vụ tài chính và các nghĩa vụ hành chính đối với nhà trường.\n\n*Lưu ý: Để biết chính xác số tín chỉ yêu cầu cho đúng ngành học của bạn, bạn có thể kiểm tra Sổ tay Sinh viên (Student Handbook) của Viện/Ngành mình đang theo học hoặc cung cấp Mã sinh viên để mình tra cứu chi tiết hơn nhé!*",
+    "latency_ms": 8894.5
   },
   {
     "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tra cứu GPA, trạng thái học tập, cố vấn và toàn bộ lịch thi của sinh viên SV2026001.",
     "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV2026001\"}",
     "tool_name": "academic_query",
     "arguments": {
       "student_id": "SV2026001"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "student_id": "SV2026001",
+      "data": {
+        "full_name": "Nguyễn Văn An",
+        "class": "AI-K4",
+        "gpa": 3.85,
+        "email": "an.nv@vinuni.edu.vn",
+        "status": "Đang học",
+        "advisor": "PGS.TS Nguyễn Văn A",
+        "exam_schedule": [
+          {
+            "course_code": "AI301",
+            "course_name": "Agentic AI",
+            "datetime": "08:00 20/09/2026",
+            "room": "C101"
+          },
+          {
+            "course_code": "CS202",
+            "course_name": "Cấu trúc dữ liệu",
+            "datetime": "13:30 23/09/2026",
+            "room": "B203"
+          }
+        ]
+      }
+    },
+    "latency_ms": 2881.25
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tra cứu GPA, trạng thái học tập, cố vấn và toàn bộ lịch thi của sinh viên SV2026001.",
     "action_type": "FINAL_ANSWER",
     "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
+    "output": "Sinh viên SV2026001 (Nguyễn Văn An), lớp AI-K4, GPA 3.85, trạng thái Đang học, cố vấn PGS.TS Nguyễn Văn A. Lịch thi: AI301 - Agentic AI, 08:00 20/09/2026, phòng C101; CS202 - Cấu trúc dữ liệu, 13:30 23/09/2026, phòng B203.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'schedule_appointment' với tham số: {\"advisor_name\": \"PGS.TS Nguyễn Văn A\", \"student_id\": \"SV2026001\", \"datetime_str\": \"14:00 15/09/2026\"}",
+    "tool_name": "schedule_appointment",
+    "arguments": {
+      "advisor_name": "PGS.TS Nguyễn Văn A",
+      "student_id": "SV2026001",
+      "datetime_str": "14:00 15/09/2026"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "booking_id": "BK-SV2026001-99",
+      "student_id": "SV2026001",
+      "datetime": "14:00 15/09/2026",
+      "advisor": "PGS.TS Nguyễn Văn A",
+      "message": "Đặt lịch thành công cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026."
+    },
+    "latency_ms": 5678.85
+  },
+  {
+    "step": 2,
+    "query": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Đặt lịch thành công cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Hãy tra cứu GPA, lịch thi và tên cố vấn của sinh viên SV2026001, sau đó đặt lịch hẹn tư vấn với đúng cố vấn vào lúc 14:00 15/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV2026001\"}",
+    "tool_name": "academic_query",
+    "arguments": {
+      "student_id": "SV2026001"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "student_id": "SV2026001",
+      "data": {
+        "full_name": "Nguyễn Văn An",
+        "class": "AI-K4",
+        "gpa": 3.85,
+        "email": "an.nv@vinuni.edu.vn",
+        "status": "Đang học",
+        "advisor": "PGS.TS Nguyễn Văn A",
+        "exam_schedule": [
+          {
+            "course_code": "AI301",
+            "course_name": "Agentic AI",
+            "datetime": "08:00 20/09/2026",
+            "room": "C101"
+          },
+          {
+            "course_code": "CS202",
+            "course_name": "Cấu trúc dữ liệu",
+            "datetime": "13:30 23/09/2026",
+            "room": "B203"
+          }
+        ]
+      }
+    },
+    "latency_ms": 2153.68
+  },
+  {
+    "step": 2,
+    "query": "Hãy tra cứu GPA, lịch thi và tên cố vấn của sinh viên SV2026001, sau đó đặt lịch hẹn tư vấn với đúng cố vấn vào lúc 14:00 15/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'schedule_appointment' với tham số: {\"datetime_str\": \"14:00 15/09/2026\", \"student_id\": \"SV2026001\", \"advisor_name\": \"PGS.TS Nguyễn Văn A\"}",
+    "tool_name": "schedule_appointment",
+    "arguments": {
+      "datetime_str": "14:00 15/09/2026",
+      "student_id": "SV2026001",
+      "advisor_name": "PGS.TS Nguyễn Văn A"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "booking_id": "BK-SV2026001-99",
+      "student_id": "SV2026001",
+      "datetime": "14:00 15/09/2026",
+      "advisor": "PGS.TS Nguyễn Văn A",
+      "message": "Đặt lịch thành công cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026."
+    },
+    "latency_ms": 7565.3
+  },
+  {
+    "step": 3,
+    "query": "Hãy tra cứu GPA, lịch thi và tên cố vấn của sinh viên SV2026001, sau đó đặt lịch hẹn tư vấn với đúng cố vấn vào lúc 14:00 15/09/2026.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Sinh viên SV2026001 (Nguyễn Văn An), lớp AI-K4, GPA 3.85, trạng thái Đang học, cố vấn PGS.TS Nguyễn Văn A. Lịch thi: AI301 - Agentic AI, 08:00 20/09/2026, phòng C101; CS202 - Cấu trúc dữ liệu, 13:30 23/09/2026, phòng B203. Đặt lịch thành công cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Hãy tra cứu GPA và lịch thi của sinh viên có mã SV9999999.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV9999999\"}",
+    "tool_name": "academic_query",
+    "arguments": {
+      "student_id": "SV9999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy dữ liệu sinh viên có mã 'SV9999999'"
+    },
+    "latency_ms": 2598.86
+  },
+  {
+    "step": 2,
+    "query": "Hãy tra cứu GPA và lịch thi của sinh viên có mã SV9999999.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Không tìm thấy dữ liệu sinh viên có mã 'SV9999999'",
     "latency_ms": 10.0
   }
 ]

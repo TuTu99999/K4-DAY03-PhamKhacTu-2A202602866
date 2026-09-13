@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Sinh viên VinUni cần tích lũy tối thiểu bao nhiêu tín chỉ và duy trì GPA bao nhiêu để tốt nghiệp?",
+    "expected_behavior": "Agent trả lời trực tiếp quy chế học vụ chung từ System Prompt và không gọi academic_query hoặc schedule_appointment.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tra cứu GPA, trạng thái học tập, cố vấn và toàn bộ lịch thi của sinh viên SV2026001.",
+    "expected_behavior": "Agent chỉ gọi academic_query với student_id='SV2026001', sau đó trả đúng GPA, trạng thái, cố vấn và lịch thi từ Observation.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "appointment_booking",
+    "question": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026.",
+    "expected_behavior": "Agent gọi schedule_appointment đúng một lần với student_id='SV2026001', datetime_str='14:00 15/09/2026', advisor_name='PGS.TS Nguyễn Văn A' và xác nhận booking thành công.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Hãy tra cứu GPA, lịch thi và tên cố vấn của sinh viên SV2026001, sau đó đặt lịch hẹn tư vấn với đúng cố vấn vào lúc 14:00 15/09/2026.",
+    "expected_behavior": "Agent gọi academic_query trước; nếu sinh viên tồn tại thì lấy advisor từ Observation để gọi schedule_appointment. Câu trả lời cuối phải gồm GPA, lịch thi và xác nhận lịch hẹn.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy tra cứu GPA và lịch thi của sinh viên có mã SV9999999.",
+    "expected_behavior": "Agent gọi academic_query với student_id='SV9999999', xử lý trạng thái NOT_FOUND, không bịa GPA/lịch thi và không gọi schedule_appointment.",
+    "complexity": "Medium"
+  }
+]
